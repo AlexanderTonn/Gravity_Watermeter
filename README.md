@@ -12,15 +12,18 @@
 * [Available Pins on MEGA2560 R3](#available-pins-on-mega2560-r3)
 * [run()](#run)
 * [getWaterflow1()...getWaterflow4()](#getwaterflow1--getwaterflow4)
-* [setComputeInterval()](#setComputeInterval)
+* [setComputeInterval()](#setcomputeinterval)
 
 # Introduction
-This class was developed for the Gravity Waterflow Sensor but without using the external interrupts by using the `attachInterrupt` function as it's described in the offical example. 
+This class was developed for the Gravity [Waterflow Sensor ](https://wiki.dfrobot.com/Water_Flow_Sensor_-_1_2__SKU__SEN0217) but without using the external interrupts by using the `attachInterrupt` function as it's described in the offical example. 
 The disadvantage is the limited amount of available pins which you can use. With my implementation it's possible to configure any internal interrupt pins (if it's connected to an accessable pin). 
 
 ## Use Case
 * the available pins for external interrupts are already used in your control task
 * you need more than the available external interrupts
+
+## Official Link of the Sensor
+https://wiki.dfrobot.com/Water_Flow_Sensor_-_1_2__SKU__SEN0217
 
 # Example
 The example is using the Arduino MEGA2560 R3 and simple buttons for creating the "fake impulses". If you push the buttons fast enough you can see the calculated water consumption per hour.
