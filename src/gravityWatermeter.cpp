@@ -155,19 +155,28 @@ auto GravityWatermeter::begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8
 
     mInitialized = true;
 }
+auto GravityWatermeter::begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5) -> void
+{
+    if (mInitialized)
+        return;
+    enable(pin1, pin2, pin3, pin4);
+    enable(pin5);
+
+    mInitialized = true;
+}
 /**
  * @brief Sets the interrupt registers
  *
  */
-auto GravityWatermeter::enable(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4) -> void
+auto GravityWatermeter::enable(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5, uint8_t pin6, uint8_t pin7, uint8_t pin8) -> void
 {
 #ifdef ARDUINO_AVR_MEGA2560
     switch (mINTGroup)
     {
 
     case pinGroups::INTERNAL_GRP0:
-        _gravityWatermeter_BitMaskB |= checkPinValid(pin1) | checkPinValid(pin2) | checkPinValid(pin3) | checkPinValid(pin4);
-        setArrayPos(pin1, pin2, pin3, pin4);
+        _gravityWatermeter_BitMaskB |= checkPinValid(pin1) | checkPinValid(pin2) | checkPinValid(pin3) | checkPinValid(pin4) | checkPinValid(pin5) | checkPinValid(pin6) | checkPinValid(pin7) | checkPinValid(pin8);
+        setArrayPos(pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8);
         DDRB &= ~(_gravityWatermeter_BitMaskB); // Set as input
         // PORTB |= (_gravityWatermeter_BitMaskB);  // Enable pull-up resistors
         PCMSK0 |= (_gravityWatermeter_BitMaskB); // Set bitmask
@@ -175,8 +184,8 @@ auto GravityWatermeter::enable(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t
         _gravityWatermeter_LastPINB = PINB;
         break;
     case pinGroups::INTERNAL_GRP1:
-        _gravityWatermeter_BitMaskJ |= checkPinValid(pin1) | checkPinValid(pin2) | checkPinValid(pin3) | checkPinValid(pin4);
-        setArrayPos(pin1, pin2, pin3, pin4);
+        _gravityWatermeter_BitMaskJ |= checkPinValid(pin1) | checkPinValid(pin2) | checkPinValid(pin3) | checkPinValid(pin4) | checkPinValid(pin5) | checkPinValid(pin6) | checkPinValid(pin7) | checkPinValid(pin8);
+        setArrayPos(pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8);
         DDRJ &= ~(_gravityWatermeter_BitMaskJ); // Set as input
         // PORTJ |= (_gravityWatermeter_BitMaskJ);  // Enable pull-up resistors
         PCMSK1 |= (_gravityWatermeter_BitMaskJ); // Set bitmask
@@ -185,8 +194,8 @@ auto GravityWatermeter::enable(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t
 
         break;
     case pinGroups::INTERNAL_GRP2:
-        _gravityWatermeter_BitMaskK |= checkPinValid(pin1) | checkPinValid(pin2) | checkPinValid(pin3) | checkPinValid(pin4);
-        setArrayPos(pin1, pin2, pin3, pin4);
+        _gravityWatermeter_BitMaskK |= checkPinValid(pin1) | checkPinValid(pin2) | checkPinValid(pin3) | checkPinValid(pin4) | checkPinValid(pin5) | checkPinValid(pin6) | checkPinValid(pin7) | checkPinValid(pin8);
+        setArrayPos(pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8);
         DDRK &= ~(_gravityWatermeter_BitMaskK); // Set as input
         // PORTK |= (_gravityWatermeter_BitMaskK);  // Enable pull-up resistors
         PCMSK2 |= (_gravityWatermeter_BitMaskK); // Set bitmask
@@ -227,16 +236,24 @@ auto GravityWatermeter::compute() -> void
     auto count2 = _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[1])];
     auto count3 = _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[2])];
     auto count4 = _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[3])];
+    auto count5 = _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[4])];
+    auto count6 = _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[5])];
+    auto count7 = _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[6])];
+    auto count8 = _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[7])];
 
-    _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[0])] = 0;
-    _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[1])] = 0;
-    _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[2])] = 0;
-    _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[3])] = 0;
+    for(int i = 0; i < 8; i++)
+    {
+        _gravityWatermeter_Count[static_cast<uint8_t>(mPinPos[i])] = 0;
+    }
 
     mflow_lph1 = (count1 * 3600.0f) / 450.0f; // L/h
     mflow_lph2 = (count2 * 3600.0f) / 450.0f; // L/h
     mflow_lph3 = (count3 * 3600.0f) / 450.0f; // L/h
     mflow_lph4 = (count4 * 3600.0f) / 450.0f; // L/h
+    mflow_lph5 = (count5 * 3600.0f) / 450.0f; // L/h
+    mflow_lph6 = (count6 * 3600.0f) / 450.0f; // L/h
+    mflow_lph7 = (count7 * 3600.0f) / 450.0f; // L/h
+    mflow_lph8 = (count8 * 3600.0f) / 450.0f; // L/h
 }
 
 /**
@@ -309,10 +326,14 @@ auto GravityWatermeter::mapPin(uint8_t pin, uint8_t idx) -> void
 #endif
 }
 
-auto GravityWatermeter::setArrayPos(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4) -> void
+auto GravityWatermeter::setArrayPos(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5, uint8_t pin6, uint8_t pin7, uint8_t pin8) -> void
 {
     mapPin(pin1, 0);
     mapPin(pin2, 1);
     mapPin(pin3, 2);
     mapPin(pin4, 3);
+    mapPin(pin5, 4);
+    mapPin(pin6, 5);
+    mapPin(pin7, 6);
+    mapPin(pin8, 7);
 }

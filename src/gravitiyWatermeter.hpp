@@ -13,6 +13,10 @@ private:
     float mflow_lph2 = 0.0f;
     float mflow_lph3 = 0.0f;
     float mflow_lph4 = 0.0f;
+    float mflow_lph5 = 0.0f;
+    float mflow_lph6 = 0.0f;
+    float mflow_lph7 = 0.0f;
+    float mflow_lph8 = 0.0f;
 
 #ifdef ARDUINO_AVR_MEGA2560
 public:
@@ -55,7 +59,7 @@ public:
         _PIN53
     };
 private:
-    CountArrayPos mPinPos[4];
+    CountArrayPos mPinPos[8];
 
 #endif
 public:
@@ -63,6 +67,10 @@ public:
     auto begin(pinGroups group, uint8_t pin1, uint8_t pin2) -> void;
     auto begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3) -> void;
     auto begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4) -> void;
+    auto begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5) -> void;
+    auto begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5, uint8_t pin6) -> void;
+    auto begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5, uint8_t pin6, uint8_t pin7) -> void;
+    auto begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5, uint8_t pin6, uint8_t pin7, uint8_t pin8) -> void;
 
     auto run() -> void;
 
@@ -78,9 +86,9 @@ public:
 
 private:
     auto checkPinValid(uint8_t pin) -> int;
-    auto enable(uint8_t pin1, uint8_t pin2 = 0, uint8_t pin3 = 0, uint8_t pin4 = 0) -> void;
+    auto enable(uint8_t pin1, uint8_t pin2 = 0, uint8_t pin3 = 0, uint8_t pin4 = 0, uint8_t pin5 = 0, uint8_t pin6 = 0, uint8_t pin7 = 0, uint8_t pin8 = 0) -> void;
     auto compute() -> void;
-    auto setArrayPos(uint8_t pin1, uint8_t pin2 = 0, uint8_t pin3 = 0, uint8_t pin4 = 0) -> void;
+    auto setArrayPos(uint8_t pin1, uint8_t pin2 = 0, uint8_t pin3 = 0, uint8_t pin4 = 0, uint8_t pin5 = 0, uint8_t pin6 = 0, uint8_t pin7 = 0, uint8_t pin8 = 0) -> void;
     auto mapPin(uint8_t pin, uint8_t idx) -> void; 
 };
 
