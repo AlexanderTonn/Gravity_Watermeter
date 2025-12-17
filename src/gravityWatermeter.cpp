@@ -19,31 +19,6 @@ auto GravityWatermeter::checkPinValid(uint8_t pin) -> int
 #ifdef ARDUINO_AVR_MEGA2560
     switch (pin)
     {
-        // External inputs valid pins
-    case 2:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT0) : 0;
-        break;
-    case 3:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT1) : 0;
-        break;
-    case 18:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT5) : 0;
-        break;
-    case 19:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT4) : 0;
-        break;
-    case 20:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT3) : 0;
-        break;
-    case 21:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT2) : 0;
-        break;
-    case 24:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT6) : 0;
-        break;
-    case 25:
-        retVal = mINTGroup == pinGroups::EXTERNAL_INPUTS ? (1 << INT7) : 0;
-        break;
     // ##############
     // PCINT 0
     case 10:

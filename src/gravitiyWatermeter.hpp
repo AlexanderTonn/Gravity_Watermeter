@@ -26,7 +26,6 @@ public:
         INTERNAL_GRP0,
         INTERNAL_GRP1,
         INTERNAL_GRP2,
-        EXTERNAL_INPUTS,
     } mINTGroup;
 
     enum class CountArrayPos : uint8_t
