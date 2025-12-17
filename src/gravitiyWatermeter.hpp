@@ -83,6 +83,8 @@ public:
     auto getWaterflow4() -> float { return mflow_lph4; };
     auto getWaterflow5() -> float { return mflow_lph5; };
     auto getWaterflow6() -> float { return mflow_lph6; };
+    auto getWaterflow7() -> float { return mflow_lph7; };
+    auto getWaterflow8() -> float { return mflow_lph8; };
 
     auto setComputeInterval(uint32_t intervalMs) -> void { mComputeIntervalMs = intervalMs; };
 

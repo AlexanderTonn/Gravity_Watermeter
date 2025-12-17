@@ -159,8 +159,24 @@ auto GravityWatermeter::begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8
 {
     if (mInitialized)
         return;
-    enable(pin1, pin2, pin3, pin4);
-    enable(pin5);
+    enable(pin1, pin2, pin3, pin4, pin5);
+
+    mInitialized = true;
+}
+auto GravityWatermeter::begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5, uint8_t pin6) -> void
+{
+    if (mInitialized)
+        return;
+    enable(pin1, pin2, pin3, pin4, pin5, pin6);
+
+
+    mInitialized = true;
+}
+auto GravityWatermeter::begin(pinGroups group, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t pin5, uint8_t pin6, uint8_t pin7) -> void
+{
+    if (mInitialized)
+        return;
+    enable(pin1, pin2, pin3, pin4, pin5, pin6, pin7);
 
     mInitialized = true;
 }
